@@ -26,8 +26,20 @@ export default () => {
         })
     }
 
+    const getTweetById = (tweetId) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await useFetchApi(`/api/tweets/${tweetId}`)
+                resolve(response)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
     return {
         postTweet,
-        getHomeTweets
+        getHomeTweets,
+        getTweetById
     }
 }
