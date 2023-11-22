@@ -24,6 +24,11 @@ export default defineEventHandler(async (event) => {
         text: fields.text[0],
     }
 
+    const replyTo = fields.replyTo;
+    if (replyTo && replyTo !== 'null') {
+        tweetData.replyToId = replyTo;
+    }
+
     const tweet = await createTweet(tweetData)
 
     const filePromises = Object.keys(files).map(async key => {
