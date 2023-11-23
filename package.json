@@ -16,6 +16,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
     "@nuxtjs/tailwindcss": "^6.10.0",
     "@prisma/client": "^5.6.0",
@@ -26,6 +27,7 @@
     "human-time": "^0.0.2",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
+    "mitt": "^3.0.1",
     "prisma": "^5.6.0",
     "url-pattern": "^1.0.3"
   }

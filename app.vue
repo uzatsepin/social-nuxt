@@ -7,7 +7,7 @@
                     <!-- Left sidebar -->
                     <div class="hidden md:block xs:col-span-1 xl:col-span-2">
                         <div class="sticky top-0">
-                            <SidebarLeft />
+                            <SidebarLeft @on-tweet="handleOpenTweetModal" />
                         </div>
                     </div>
                     <!-- Main content -->
@@ -23,20 +23,48 @@
                 </div>
             </div>
             <AuthPage v-else />
+
+            <UIModal :isOpen="postTweetModal" @onClose="handleModalClose">
+                <TweetForm :replyTo="replyTweet" showReply :user="user" @onSuccess="handleFormSuccess" />
+            </UIModal>
         </div>
     </div>
 </template>
 
 <script setup>
 import LoadingPage from "~/components/LoadingPage.vue";
+import useEmitter from "~/composables/useEmitter.js";
 
 const darkMode = ref(false)
 
 const { useAuthUser, initAuth, useAuthLoading } = useAuth();
 const isAuthLoading = useAuthLoading();
 const user = useAuthUser();
+const { closePostTweetModal, usePostTweetModal, openPostTweetModal, useReplyTweet } = useTweets();
+const postTweetModal = usePostTweetModal()
+const emmiter = useEmitter();
+const replyTweet = useReplyTweet();
+
+emmiter.$on('replyTweet', (tweet) => {
+    openPostTweetModal(tweet)
+})
 
 onBeforeMount(() => {
     initAuth()
 })
+
+function handleFormSuccess(tweet) {
+    closePostTweetModal()
+    navigateTo({
+        path: `/status/${tweet.id}`
+    })
+}
+
+function handleModalClose() {
+    closePostTweetModal()
+}
+
+function handleOpenTweetModal() {
+    openPostTweetModal(null)
+}
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-around w-full">
-        <TweetItemActionsIcon color="blue" :size="size">
+        <TweetItemActionsIcon color="blue" :size="size" @on-click="emits('onCommentClick')">
             <template v-slot:icon="{classes}">
                 <ChatBubbleOvalLeftEllipsisIcon :class="classes"/>
             </template>
@@ -45,6 +45,7 @@
 import {ChatBubbleOvalLeftEllipsisIcon, HeartIcon, ArrowPathIcon, ShareIcon} from "@heroicons/vue/24/outline";
 import {computed} from "vue";
 
+const emits = defineEmits(['onCommentClick'])
 const props = defineProps({
     tweet: {
         type: Object,

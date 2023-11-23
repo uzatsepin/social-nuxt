@@ -1,5 +1,19 @@
 <template>
     <div class="flex flex-col">
+
+        <!-- Search bar -->
+
+        <div class="relative m-2">
+            <div class="absolute flex items-center h-full pl-4 text-gray-600 cursor-pointer">
+                <div class="w-6 h-6">
+                    <MagnifyingGlassIcon @click="handleSearch" />
+                </div>
+
+            </div>
+            <input type="text"
+                class="flex items-center w-full pl-12 text-sm font-normal text-black dark:text-gray-100 bg-gray-200 border border-gray-200 rounded-full shadow dark:bg-dim-400 dark:border-dim-100 focus:bg-gray-100 dark:focus:bg-dim-900 focus:online-none focus:border focus:border-blue-200 h-9"
+                placeholder="Search..." v-model="search">
+        </div>
         <SidebarRightPreviewCard title="What's happening">
             <SidebarRightPreviewCardItem v-for="whatsHappening in whatsHappeningItems">
                 <div>
@@ -29,6 +43,10 @@
     </div>
 </template>
 <script setup>
+
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
+const search = ref('')
+
 const whatsHappeningItems = ref([
     {
         title: 'SpaceX',
@@ -60,5 +78,14 @@ const whoToFollowItems = ref([
         avatar: 'https://picsum.photos/200/200'
     }
 ])
+
+function handleSearch() {
+    useRouter().push({
+        path: '/path',
+        query: {
+            q: search.value
+        }
+    })
+}
 
 </script>
