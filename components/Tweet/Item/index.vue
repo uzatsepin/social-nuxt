@@ -1,15 +1,15 @@
 <template>
     <div>
         <TweetItemHeader :tweet="props.tweet"/>
-        <div class="ml-16">
-            <p class="flex-shrink font-medium text-gray-800 w-auto dark:text-white">
+        <div :class="tweetBodyWrapper">
+            <p class="flex-shrink font-medium text-gray-800 w-auto dark:text-white" :class="textSize">
                 {{props.tweet.text}}
             </p>
-            <div v-for="image in props.tweet.mediaFiles" :key="image.id" class="flex my-3 mr-2 border-2 rounded" :class="twitterBorderColor">
+            <div v-for="image in props.tweet.mediaFiles" :key="image.id" class="flex my-3 mr-2 border-2 rounded-2xl" :class="twitterBorderColor">
                 <img :src="image.url" alt="" class="w-full rounded-2xl">
             </div>
             <div class="mt-2">
-                <TweetItemActions :tweet="tweet" />
+                <TweetItemActions :tweet="tweet" :compact="props.compact"/>
             </div>
         </div>
     </div>
@@ -18,6 +18,7 @@
 <script setup>
 
 import useTailwindConfig from "~/composables/useTailwindConfig.js";
+import {computed} from "vue";
 
 const {twitterBorderColor} = useTailwindConfig()
 
@@ -25,7 +26,14 @@ const props = defineProps({
     tweet: {
         type: Object,
         required: true,
+    },
+    compact: {
+        type: Boolean,
+        default: false
     }
 })
+
+const tweetBodyWrapper = computed(() => props.compact ? 'ml-16' : 'ml-2 mt-4')
+const textSize = computed(() => props.compact ? 'text-base' : 'text-2xl')
 
 </script>

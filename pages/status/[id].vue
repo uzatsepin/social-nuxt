@@ -4,20 +4,27 @@
             <Head>
                 <Title></Title>
             </Head>
+
+            <TweetDetail :user="user" :tweet="tweet"/>
         </MainSection>
     </div>
 </template>
 
 <script setup>
 import useTweets from "~/composables/useTweets.js";
+import useAuth from "~/composables/useAuth.js";
 
 const loading = ref(false);
-const tweet = ref(null)
-const {getTweetById} = useTweets()
+const tweet = ref({})
+const { getTweetById } = useTweets()
+const { useAuthUser } = useAuth()
+const user = useAuthUser();
 
 function getTweetIdFromRoute() {
     return useRoute().params.id
 }
+
+watch(() => useRoute().fullPath, () => getTweet())
 
 async function getTweet() {
     loading.value = true;

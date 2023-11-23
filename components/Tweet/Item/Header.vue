@@ -1,14 +1,14 @@
 <template>
     <div class="flex p-4">
         <div>
-            <img class="w-10 h-10 rounded-full" :src="author.profileImage" alt="">
+            <img class="w-10 h-10 rounded-full" :src="props.tweet.author?.profileImage" alt="">
 
         </div>
         <div class="ml-3 text-sm font-medium text-gray-400">
-            <span class="font-medium text-gray-800 dark:text-white">{{ author.name }}</span>
+            <span class="font-medium text-gray-800 dark:text-white">{{ props.tweet.author?.name }}</span>
             <span class="ml-3">
                 <nuxt-link to="#">
-                {{ author.handle }}
+                {{ props.tweet.author?.handle }}
             </nuxt-link>
                 {{props.tweet.postedAtHuman}}
             </span>

@@ -1,4 +1,6 @@
-import { prisma } from "."
+import { prisma } from ".";
+
+
 export const createTweet = (tweetData) => {
     return prisma.tweet.create({
         data: tweetData
@@ -18,6 +20,5 @@ export const getTweetById = (tweetId, params = {}) => {
             ...params.where,
             id: tweetId
         },
-
     })
 }
